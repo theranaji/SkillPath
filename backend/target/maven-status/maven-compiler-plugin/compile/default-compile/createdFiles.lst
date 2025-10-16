@@ -1,3 +1,4 @@
+PermutationSubstringFinder.class
 com/skillpath/model/UserProgress.class
 com/skillpath/service/ProgressService.class
 com/skillpath/model/User.class
@@ -8,6 +9,7 @@ com/skillpath/model/Topic.class
 com/skillpath/repository/UserRepository.class
 com/skillpath/repository/UserProgressRepository.class
 com/skillpath/service/AuthService.class
+com/skillpath/controller/TopicController.class
 com/skillpath/security/JwtUtil.class
 com/skillpath/controller/ProgressController.class
 com/skillpath/config/SecurityConfig.class

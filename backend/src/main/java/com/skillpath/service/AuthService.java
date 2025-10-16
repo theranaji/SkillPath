@@ -16,24 +16,24 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public String login(String username, String password) {
-        User user = userRepository.findByUsername(username)
+    public String login(String email, String password) {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
         
-        return jwtUtil.generateToken(username);
+        return jwtUtil.generateToken(user.getUsername());
     }
 
-    public User register(String username, String email, String password) {
-        if (userRepository.findByUsername(username).isPresent()) {
-            throw new RuntimeException("Username already exists");
+    public User register(String name, String email, String password) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email already exists");
         }
         
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(name);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         

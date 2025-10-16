@@ -10,14 +10,19 @@ const api = axios.create({
 });
 
 export const authService = {
-  login: (username, password) => api.post('/auth/login', { username, password }),
-  register: (username, email, password) => api.post('/auth/register', { username, email, password }),
+  login: (email, password) => api.post('/auth/login', { email, password }),
+  register: (name, email, password) => api.post('/auth/register', { name, email, password }),
 };
 
 export const progressService = {
-  getTopicsBySection: (section) => api.get(`/topics/${section}`),
+  getTopicsBySection: (section) => api.get(`/topics/${encodeURIComponent(section)}`),
   markTopicComplete: (userId, topicId) => api.post(`/progress/${userId}/${topicId}`),
   getProgress: (userId) => api.get(`/progress/${userId}`),
   getDailyProgress: (userId) => api.get(`/daily/${userId}`),
-  getUserByUsername: (username) => api.get(`/user/${username}`),
+  getUserByEmail: (email) => api.get(`/user/email/${email}`),
+};
+
+export const topicService = {
+  addTopic: (name, section, description) => api.post('/topics/add', { name, section, description }),
+  addBulkTopics: (section, topics) => api.post('/topics/bulk-add', { section, topics }),
 };

@@ -21,10 +21,7 @@ public class ProgressController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/topics/{section}")
-    public List<Topic> getTopicsBySection(@PathVariable String section) {
-        return topicRepository.findBySection(section);
-    }
+
 
     @PostMapping("/progress/{userId}/{topicId}")
     public ResponseEntity<?> markComplete(@PathVariable Long userId, @PathVariable Long topicId) {
@@ -42,10 +39,10 @@ public class ProgressController {
         return ResponseEntity.ok(Map.of("sections", progressService.getTodayStudiedSections(userId)));
     }
 
-    @GetMapping("/user/{username}")
-    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
-        return userRepository.findByUsername(username)
-                .map(user -> ResponseEntity.ok(Map.of("id", user.getId(), "username", user.getUsername())))
+    @GetMapping("/user/email/{email}")
+    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+        return userRepository.findByEmail(email)
+                .map(user -> ResponseEntity.ok(Map.of("id", user.getId(), "username", user.getUsername(), "email", user.getEmail())))
                 .orElse(ResponseEntity.notFound().build());
     }
 }
